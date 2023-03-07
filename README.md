@@ -2,6 +2,9 @@
 
 本主题是基于[PaperMod](https://github.com/adityatelange/hugo-PaperMod/)主题进行了定制和魔改，使用[GitHub Actions](https://github.com/features/actions)进行自动部署
 
+![](https://github.com/moxv/PaperMod-seersu/blob/main/static/img/TinySnap-2023-03-07-17.19.06.png?raw=true)
+
+
 本仓库不是单独的主题文件，包含hugo主程序，所以你只需clong仓库全部文件，本地运行或线上部署。
 
 在原版主题 PaperMod 的基础上，增加了：
