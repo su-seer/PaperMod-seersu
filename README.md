@@ -2,6 +2,8 @@
 
 本主题是基于[PaperMod](https://github.com/adityatelange/hugo-PaperMod/)主题进行了定制和魔改，使用[GitHub Actions](https://github.com/features/actions)进行自动部署
 
+本仓库不是单独的主题文件，包含hugo主程序，所以你只需clong仓库全部文件，本地运行或线上部署。
+
 在原版主题 PaperMod 的基础上，增加了：
 
 - lightGallery：图片浏览
@@ -15,3 +17,6 @@
 - 文章内导航树[目录]
 - 文章源信息小图标
 - 以及一些自定义的魔改**待你发现**
+
+
+如果你在安装使用过程中，有任何疑问请[Issues](https://github.com/moxv/PaperMod-seersu/issues/new/choose)提出，我会抽时间回复！
