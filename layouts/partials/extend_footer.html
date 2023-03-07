@@ -1,0 +1,231 @@
+{{- /* toc animation */ -}}
+<script>
+    class Accordion {
+        constructor(el) {
+            // Store the <details> element
+            this.el = el;
+            // Store the <summary> element
+            this.summary = el.querySelector('summary');
+            // Store the <div class="content"> element
+            this.content = el.querySelector('.inner');
+
+            // Store the animation object (so we can cancel it if needed)
+            this.animation = null;
+            // Store if the element is closing
+            this.isClosing = false;
+            // Store if the element is expanding
+            this.isExpanding = false;
+            // Detect user clicks on the summary element
+            this.summary.addEventListener('click', (e) => this.onClick(e));
+        }
+
+        onClick(e) {
+            // Stop default behaviour from the browser
+            e.preventDefault();
+            // Add an overflow on the <details> to avoid content overflowing
+            this.el.style.overflow = 'hidden';
+            // Check if the element is being closed or is already closed
+            if (this.isClosing || !this.el.open) {
+            this.open();
+            // Check if the element is being openned or is already open
+            } else if (this.isExpanding || this.el.open) {
+            this.shrink();
+            }
+        }
+
+        shrink() {
+            // Set the element as "being closed"
+            this.isClosing = true;
+            
+            // Store the current height of the element
+            const startHeight = `${this.el.offsetHeight}px`;
+            // Calculate the height of the summary
+            const endHeight = `${this.summary.offsetHeight}px`;
+            
+            // If there is already an animation running
+            if (this.animation) {
+            // Cancel the current animation
+            this.animation.cancel();
+            }
+            
+            // Start a WAAPI animation
+            this.animation = this.el.animate({
+            // Set the keyframes from the startHeight to endHeight
+            height: [startHeight, endHeight]
+            }, {
+            duration: 400,
+            easing: 'ease-out'
+            });
+            
+            // When the animation is complete, call onAnimationFinish()
+            this.animation.onfinish = () => this.onAnimationFinish(false);
+            // If the animation is cancelled, isClosing variable is set to false
+            this.animation.oncancel = () => this.isClosing = false;
+        }
+
+        open() {
+            // Apply a fixed height on the element
+            this.el.style.height = `${this.el.offsetHeight}px`;
+            // Force the [open] attribute on the details element
+            this.el.open = true;
+            // Wait for the next frame to call the expand function
+            window.requestAnimationFrame(() => this.expand());
+        }
+
+        expand() {
+            // Set the element as "being expanding"
+            this.isExpanding = true;
+            // Get the current fixed height of the element
+            const startHeight = `${this.el.offsetHeight}px`;
+            // Calculate the open height of the element (summary height + content height)
+            const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+            
+            // If there is already an animation running
+            if (this.animation) {
+            // Cancel the current animation
+            this.animation.cancel();
+            }
+            
+            // Start a WAAPI animation
+            this.animation = this.el.animate({
+            // Set the keyframes from the startHeight to endHeight
+            height: [startHeight, endHeight]
+            }, {
+            duration: 400,
+            easing: 'ease-out'
+            });
+            // When the animation is complete, call onAnimationFinish()
+            this.animation.onfinish = () => this.onAnimationFinish(true);
+            // If the animation is cancelled, isExpanding variable is set to false
+            this.animation.oncancel = () => this.isExpanding = false;
+        }
+
+        onAnimationFinish(open) {
+            // Set the open attribute based on the parameter
+            this.el.open = open;
+            // Clear the stored animation
+            this.animation = null;
+            // Reset isClosing & isExpanding
+            this.isClosing = false;
+            this.isExpanding = false;
+            // Remove the overflow hidden and the fixed height
+            this.el.style.height = this.el.style.overflow = '';
+        }
+    }
+
+    document.querySelectorAll('.toc details').forEach((el) => {
+        new Accordion(el);
+    });
+</script>
+
+{{- /* Scroll To Comment */ -}}
+{{- if (and (.IsPage) (ne .Layout "archives") (ne .Layout "search")) }}
+<a href="#comment" aria-label="go to bottom comment" title="Go to Bottom Comment (Alt + B)" class="top-link bottom-comment" id="bottom-comment" accesskey="b" style="visibility: visible; opacity: 1;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.338 29.338" fill="currentcolor">
+        <path d="M27.184,1.605H2.156C0.967,1.605,0,2.572,0,3.76v17.572c0,1.188,0.967,2.155,2.156,2.155h13.543
+		l5.057,3.777c0.414,0.31,0.842,0.468,1.268,0.468c0.789,0,1.639-0.602,1.637-1.923v-2.322h3.523c1.188,0,2.154-0.967,2.154-2.155
+		V3.76C29.338,2.572,28.371,1.605,27.184,1.605z M27.34,21.332c0,0.085-0.068,0.155-0.154,0.155h-5.523v3.955l-5.297-3.956H2.156
+		c-0.086,0-0.154-0.07-0.154-0.155V3.759c0-0.085,0.068-0.155,0.154-0.155v0.001h25.029c0.086,0,0.154,0.07,0.154,0.155
+		L27.34,21.332L27.34,21.332z M5.505,10.792h4.334v4.333H5.505C5.505,15.125,5.505,10.792,5.505,10.792z M12.505,10.792h4.334v4.333
+		h-4.334V10.792z M19.505,10.792h4.334v4.333h-4.334V10.792z"/>
+    </svg>
+</a>
+
+<script>
+    let comment = document.getElementById("comment");
+    let bottomToComment = document.getElementById("bottom-comment")
+    
+    document.addEventListener('scroll',function () {
+        const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight 
+        const offsetTop = comment.offsetTop
+        const scrollTop = document.documentElement.scrollTop
+        const top = offsetTop - scrollTop
+        if (top <= viewPortHeight + 100) {
+            bottomToComment.style.visibility = "hidden";
+            bottomToComment.style.opacity = "0";
+        } else {
+            bottomToComment.style.visibility = "visible";
+            bottomToComment.style.opacity = "1";
+        }
+    })
+</script>
+{{- end }}
+
+{{- /* 自定义footer，增加了备案信息 */}}
+{{- $loading := resources.Get "svg/loading.svg" | minify -}}
+<footer class="footer">
+    {{- if .Site.Copyright }}
+    <span>{{ .Site.Copyright | markdownify }}</span>
+    {{- else }}
+    <span>&copy; {{ now.Year }} <a href="{{ "" | absLangURL }}">{{ .Site.Title }}</a></span>
+    {{- end }}
+    <span>
+<!-- 以下是页底添加运行天数 -->
+<i class="fas fa-bell"></i>运行 <a id="days">0</a> 天|
+<!-- 以下是页底添加不蒜子统计 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    总访客数: <i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span>
+    |
+    总访问量: <i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span>
+</span></p>
+
+    <!--     Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a> -->
+    </span>
+    <!-- <span>
+        ICP证：
+        <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">鄂ICP备16007812号-1</a>
+    </span> -->
+</footer>
+
+{{- /* img lazy load & gallery */}}
+{{ partial "lazy-gallery.html" . }}
+<script>
+    const lazyLoadInstance = new LazyLoad({
+        // Your custom settings go here
+    }); 
+    
+    const config = {
+        selector: ".lightgallery",
+        mode: "lg-slide",
+        plugins: [lgZoom, lgThumbnail],
+        speed: 400,
+        hideBarsDelay: 2000,
+        mousewheel: true,
+        thumbnail: true,
+        exThumbImage: "data-thumbnail",
+        thumbWidth: 80,
+        thumbContHeight: 80,
+        mobileSettings: { controls: true, showCloseIcon: true, download: true, },
+        licenseKey: "28AC9E09-3D8C45D8-8D6124E0-8FF74FF3", // 通过邮件联系官方获取
+    };
+
+    lightGallery(document.getElementsByClassName('post-content')[0], config);
+</script>
+
+{{- /* admonition toggle */}}
+<script>
+    let details = document.getElementsByClassName('details')
+    details = details || [];
+    for (let i = 0; i < details.length; i++) {
+        let element = details[i]
+        const summary = element.getElementsByClassName('details-summary')[0];
+        if (summary) {
+            summary.addEventListener('click', () => {
+                element.classList.toggle('open');
+            }, false);
+        }
+    }
+</script>
+
+<script>
+    var s1 = '2022-08-24';//设置为建站时间
+    s1 = new Date(s1.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+    var number_of_days = parseInt(days / (1000 * 60 * 60 * 24));
+    document.getElementById('days').innerHTML = number_of_days;
+</script>

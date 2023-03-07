@@ -1,0 +1,106 @@
+{{- define "main" }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">
+      {{ .Title }}
+      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+      {{ .Description }}
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+      {{- partial "translation_list.html" . -}}
+      {{- partial "edit_post.html" . -}}
+      {{- partial "post_canonical.html" . -}}
+    <!--访问量-->
+    <!--也可以用twikoo评论带的访问方式，如下：-->
+    <!--   <span id="twikoo_visitors"></span>    -->
+    <!--如下是使用busuanzi的方式，记得引入busuanzi的js，如果在其他文件引入了，这里可以不用引入-->
+      <span id="busuanzi_container_page_pv">
+        ·访问: <span id="busuanzi_value_page_pv"></span>
+      </span> 
+    
+    <!--评论数-->
+    <!--根据twikoo提供的接口文档修改：https://twikoo.js.org/api.html-->
+    <!--要引入twikoo的js，.Site.Params.twikoo.version是我自己的写法，让版本在config.yml配置文件控制-->
+    <script src="https://cdn.staticfile.org/twikoo/{{ .Site.Params.twikoo.version }}/twikoo.all.min.js">
+    </script>
+    <script>
+        let url = document.documentURI
+        {{ $baseURL := .Site.BaseURL }}
+        let dnsUrl = {{ $baseURL }}
+        let urlSplit = url.split(dnsUrl)
+        let finalUrl = urlSplit[1]
+        if (finalUrl[0] !== '/') {
+            finalUrl = '/'+finalUrl
+        }
+        twikoo.getCommentsCount({
+            envId: {{ .Site.Params.twikoo.id }},
+            region: {{ .Site.Params.twikoo.region }},
+            urls: [
+                finalUrl,
+            ],
+            includeReply: false // 评论数是否包括回复，默认：false
+        }).then(function (res) {
+            let count = res[0].count
+            const obj = document.getElementById("comment_count");
+            obj.innerText = count
+            // 返回示例: [
+            //   { url: '/2020/10/post-1.html', count: 10 },
+            // ]
+        }).catch(function (err) {
+            // 发生错误
+            console.error(err);
+        });
+    </script>
+    ·评论: &nbsp; <span id="comment_count"></span>
+
+
+    </div>
+    {{- end }}
+
+  </header>
+  {{- $isHidden := .Params.cover.hidden | default .Site.Params.cover.hiddenInSingle | default .Site.Params.cover.hidden }}
+  {{- partial "cover1.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
+  {{- if (.Param "ShowToc") }}
+  {{- partial "toc.html" . }}
+  {{- end }}
+
+  {{- if .Content }}
+  <div class="post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+  {{- end }}
+
+  <footer class="post-footer">
+    {{- if .Params.tags }}
+    <ul class="post-tags">
+      {{- range ($.GetTerms "tags") }}
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{- partial "post_licensing.html" . }}
+    <img src="https://bu.dusays.com/2023/01/07/63b940679748e.webp" alt="some_text">
+    {{- if (.Param "ShowPostNavLinks") }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+    {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+    {{- partial "share_icons.html" . -}}
+    {{- end }}
+  </footer>
+
+  {{- if (.Param "comments") }}
+  {{- partial "comments.html" . }}
+  {{- end }}
+</article>
+
+{{- end }}{{/* end main */}}

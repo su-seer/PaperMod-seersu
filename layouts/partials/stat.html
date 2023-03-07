@@ -1,0 +1,16 @@
+{{- $scratch := newScratch -}}
+{{- $kind := .Kind }}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+
+{{- if eq $kind "pages" -}}
+{{-   $pages = .pages -}}
+{{- else if or (eq $kind `term`) (eq $kind `section`) -}}
+{{-   $pages = union .RegularPages .Sections -}}
+{{- end -}}
+
+{{- range $pages -}}
+{{- $scratch.Add "words" .WordCount -}}
+{{- end -}}
+
+{{- $words := $scratch.Get "words" | default 0 }}
+{{- printf "%s 篇 %s 字" ((len $pages) | string) ($words | string) -}}

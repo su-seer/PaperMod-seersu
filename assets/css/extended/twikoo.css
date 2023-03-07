@@ -1,0 +1,77 @@
+/* 评论区样式 */
+.tc-container {
+    margin-top: 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.twikoo {
+    font-size: .875em;
+    max-width: 740px;
+    margin: 0 auto 15px;
+    padding: 0 14px;
+}
+
+.twikoo h1, .twikoo h2, .twikoo h3, .twikoo h4, .twikoo h5, .twikoo h6 {
+    font-family: "HarmonyOS_Medium", system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial;
+}
+
+.twikoo ol, .twikoo ul {
+    padding-inline-start: 20px;
+}
+
+.tc-title {
+    display: block;
+    text-align: center;
+}
+
+.c-title {
+    display: block;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 1.5rem 0 1.5rem 0;
+}
+
+.tk-comments-title {
+    font-size: 1em;
+} 
+
+.tk-comment {
+    margin-bottom: 1rem;
+}
+
+.twikoo code {
+    font-family: "HarmonyOS_Medium", system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial;
+    font-size: .8em !important;
+    font-weight: normal;
+    margin: auto 4px;
+    padding: 4px 6px;
+    line-height: 1.5;
+    background: var(--code-bg);
+    border-radius: 2px;
+}
+
+.twikoo code[class*="language-"] {
+    margin: 0;
+    padding: 0;
+}
+
+.twikoo pre[class*="language-"] {
+    border-radius: var(--radius);
+}
+
+.twikoo :not(pre) > code[class*="language-"], pre[class*="language-"] {
+    background: rgb(40,42,53) !important;
+}
+    
+.tk-owo-emotion {
+    max-width: 25px !important;
+    vertical-align: middle !important;
+    margin: 0 1px !important;
+    display: inline-block !important;
+}
+
+.OwO .OwO-body {
+    color: var(--content) !important;
+    background-color: var(--theme) !important;
+}

@@ -1,0 +1,16 @@
+{{- /*使用twikoo评论，https://github.com/imaegoo/twikoo*/}}
+<footer class="tc-container" id="comment">
+    <div class="tc-title"><p class="c-title">已经浏览到这里了，不留下点什么？</p></div>
+    <div id="tcomments"></div>
+</footer>
+{{- $twikoo := resources.Get "js/twikoo.js" | minify | fingerprint }}
+<script crossorigin="anonymous" src="{{ $twikoo.RelPermalink }}" integrity="{{ $twikoo.Data.Integrity }}"></script>
+<script>
+    twikoo.init({
+        envId: 'https://twikoo.xx/',
+        el: '#tcomments',
+        region: 'ap-shenzhen', // 环境地域，默认为 ap-shanghai，如果您的环境地域不是上海，需传此参数
+        // path: 'window.location.pathname', // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+        lang: 'zh-CN', // 用于手动设定评论区语言，支持的语言列表 https://github.com/imaegoo/twikoo/blob/dev/src/js/utils/i18n/index.js
+    });
+</script>

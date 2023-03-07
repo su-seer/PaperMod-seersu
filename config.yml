@@ -1,0 +1,224 @@
+baseURL: "https://xx.xx/"
+title: SeerSu
+paginate: 10
+theme: PaperMod
+defaultContentLanguage: cn
+languageCode: zh-cn
+hasCJKLanguage: true # 自动检测是否包含中文日文韩文,如果文章中使用了很多中文引号的话可以开启
+TimeZone: Asia/Shanghai
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+googleAnalytics: 
+
+minify:
+    disableXML: true
+    # minifyOutput: true
+
+languages:
+    # 偷懒，直接使用en的国际化
+    cn:
+        languageName: "Chinese"
+        weight: 1
+        menu:
+            main:
+                - name: Archive
+                  url: archives/
+                  weight: 20
+                - name: Search
+                  url: search/
+                  weight: 10
+                - name: Tags
+                  url: tags/
+                  weight: 10
+                - name: Categories
+                  url: categories/
+    #              weight: 13
+    #            - name: 友链
+    #              url: links/
+    #              weight: 4
+    #            - name: 关于
+    #              url: about/
+    #              weight: 3 
+
+
+    # en:
+    #     languageName: "English"
+    #     weight: 1
+    #     menu:
+    #         main:
+    #             - name: Archive
+    #               url: archives
+    #               weight: 15
+    #             - name: Search
+    #               url: search/
+    #               weight: 16
+    #             - name: Tags
+    #               url: tags/
+    #               weight: 14
+    #             - name: Categories
+    #               url: categories/
+    #               weight: 13
+    
+
+params:
+    env: production # to enable google analytics, opengraph, twitter-cards and schema.
+    description: "Blog,hugo"
+    author: xxx
+    # author: ["Me", "You"] # multiple authors
+    keywords: ["hugo", "Blog",]
+    
+    twikoo: 
+        version: "1.6.x"
+        region: "ap-shanghai"
+        id: "https://twikoo.xxx.xxx/"
+
+    defaultTheme: auto
+    # disableThemeToggle: true
+    # ShowShareButtons: true
+    ShowReadingTime: true
+    # disableSpecial1stPost: true
+    displayFullLangName: true
+    ShowPostNavLinks: true
+    ShowBreadCrumbs: true
+    ShowWordCount: true
+    ShowCodeCopyButtons: true
+    ShowShareButtons: true
+    ShowFullTextinRSS: true
+    enableimgloop: true
+    hideMeta: false
+    ShowToc: true
+    comments: true
+    hideFooter: true # 使用自定义footer(新增备案号)，隐藏原footer
+    katex: false
+    images: ["https://i.loli.net/2021/09/26/3OMGXylm8HUYJ6p.png"] # link or path of image for opengraph, twitter-cards
+
+
+    # profileMode:
+    #     enabled: false
+    #     title: PaperMod
+    #     imageUrl: "#"
+    #     imageTitle: my image
+    #     # imageWidth: 120
+    #     # imageHeight: 120
+    #     buttons:
+    #         - name: Archives
+    #           url: archives
+    #         - name: Tags
+    #           url: tags
+
+    homeInfoParams:
+        Title: "Hi Friends!👋"
+        Content: >
+            我是SeerSu，欢迎来到我的站点！😁
+    socialIcons:
+        - name: email
+          url: "mailto:xx@xx.com"
+        - name: xx
+          url: "xx"
+        - name: RsS
+          url: "index.xml"
+
+    editPost:
+        URL: false
+        Text: false
+        appendFilePath: false # to append file path to Edit link
+
+    label:
+        text: "SeerSu"
+        icon: /img/avatar.png
+        iconHeight: 30
+
+    # analytics:
+    #     google:
+    #         SiteVerificationTag: "XYZabc"
+
+    assets:
+        disableHLJS: true
+        favicon: "/favicon/favicon.ico"
+        favicon16x16: "/favicon/favicon-16x16.png"
+        favicon32x32: "/favicon/favicon-32x32.png"
+        apple_touch_icon: "/favicon/apple-touch-icon.png"
+        safari_pinned_tab: "/favicon/safari-pinned-tab.svg"
+
+    # Verify your site ownership
+    analytics: 
+        google:
+            SiteVerificationTag: "xx"
+        # bing:
+        #    SiteVerificationTag:
+        #yandex:
+        #    SiteVerificationTag: "3975215bf5f68fc0"
+        baidu:
+            SiteVerificationTag: "xx"
+
+    cover:
+        hidden: false # hide everywhere but not in structured data
+        hiddenInList: true # hide on list pages and home
+        hiddenInSingle: false # hide on single page
+
+    # for search
+    # https://fusejs.io/api/options.html
+    # fuseOpts:
+    #     isCaseSensitive: false
+    #     shouldSort: true
+    #     location: 0
+    #     distance: 1000
+    #     threshold: 0.4
+    #     minMatchCharLength: 0
+    #     keys: ["title", "permalink", "summary", "content"]
+
+taxonomies:
+    category: categories
+    tag: tags
+    series: series
+
+#pygmentsUseClasses: true
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+    highlight:
+        # anchorLineNos: true
+        codeFences: true
+        guessSyntax: true
+        lineNos: true
+        # 设置noClasses为false需要手动生成css，放在assets/css/extended/中
+        # 生成方式为 hugo gen chromastyles --style=dracula > assets/css/extended/chroma.css，其中dracula可以更换为任意代码主题
+        noClasses: false
+        # noClasses为false时，style失效，因此必须手动生成css
+        style: monokai
+
+privacy:
+    vimeo:
+        disabled: false
+        simple: true
+
+    twitter:
+        disabled: false
+        enableDNT: true
+        simple: true
+
+    instagram:
+        disabled: false
+        simple: true
+
+    youtube:
+        disabled: false
+        privacyEnhanced: true
+
+services:
+    instagram:
+        disableInlineCSS: true
+    twitter:
+        disableInlineCSS: true

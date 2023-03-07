@@ -1,0 +1,213 @@
+:root {
+    --main-width: 768px;
+    --content: #304455;
+}
+
+body, .admonition {
+    font-family: "SmileySans",Merriweather,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial;
+}
+
+h1, h2, h3, h4, h5, h6, .toc, footer, .archive-meta {
+    font-family: "SmileySans",HarmonyOS_Medium,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial;
+}
+
+.post-content, .post-meta, .entry-content {
+    font-family: "HarmonyOS_Medium",system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial;
+}
+
+ol {
+    padding: 0;
+    margin: 0;
+}
+
+.post-content ul dl, .post-content ul ol, .post-content ul ul {
+    margin-bottom: 0;
+}
+.post-content ol dl, .post-content ol ol, .post-content ol ul {
+    margin-bottom: 0;
+}
+.post-content dl dl, .post-content dl ol, .post-content dl ul {
+    margin-bottom: 0;
+}
+
+.post-content li p+p {
+    margin-top: 5px;
+}
+
+.post-content hr {
+    border: none;
+    height: 2px;
+    background-color: var(--tertiary);
+}
+
+.post-content hr::after {
+    content: '§';
+    color: var(--content);
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(60deg);
+    transform-origin: 50% 50%;
+    padding: 1rem;
+    background-color: var(--theme);
+}
+
+.post-content {
+    font-size: 16px;
+    /* text-align: justify; */
+}
+
+.post-content img {
+    /* 居中 */
+    margin: 0rem auto;
+    border-radius: var(--radius);
+    border: 0px solid var(--border);
+}
+
+.post-content code {
+    font-family: -apple-system, "JetBrains Mono", system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial;
+    font-size: .7em;
+    font-weight: normal;
+    padding: 1px 6px 1px 6px;
+    margin: auto 0;
+}
+
+.post-content .highlight .chroma code {
+    font-family: "JetBrains Mono", system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial;
+    font-size: .7em;
+    font-weight: normal;
+}
+
+/* 覆盖原主题中的 
+    color: rgba(255, 255, 255, 0.8); 使得代码中的默认文字始终为白色，代码风格为黑色主题时没有问题，但在白色主题下要修改为黑色
+*/
+.post-content pre code {
+    color: rgba(255, 255, 255, 0.85);
+    /* color: rgba(0, 0, 0, 0.85); */
+}
+
+/* 覆盖原主题中的 
+    background: var(--hljs-bg) !important; 这个属性Paper-Mod主题中使用了important，导致不管如何设置，代码背景始终异常，这里使用 !important将它覆盖即可
+    border-radius: var(--radius); 
+*/
+.post-content .highlight:not(table),
+.post-content pre {
+    background: unset !important;
+    margin-bottom: var(--content-gap);
+    border-radius: 0;
+}
+
+/* 代码突出显示的css，使用方式例： ```java {hl_lines=[24]}， 这个hl_lines数组可以包含多段分开的代码，如 {hl_lines=[24,"50-60"]} */
+.post-content .highlight .chroma .hl {
+    background-color: rgba(27, 104, 109, .85) !important; 
+}
+
+.chroma {
+    background: var(--hljs-bg)!important;
+    border-radius: var(--radius);
+}
+
+/* 带标题图片显示 */
+figure {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+figure .image-caption:not(:empty) {
+    min-width: 20%;
+    max-width: 80%;
+    display: inline-block;
+    padding: .5rem;
+    margin: 0 auto;
+    font-size: .875rem;
+    color: #969696;
+}
+
+figure img {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* 封面图样式修改 */
+.entry-cover img {
+    margin: 0 auto;
+    width: auto;
+}
+
+.bilibili {
+    position: relative; 
+    margin: 1rem auto; 
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+/* 版权说明区 */
+#post-licensing {
+    border-left: 0;
+    margin: 10px 0 15px;
+    font-family: "HarmonyOS_Medium",Lato,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial;
+    background-color: var(--code-bg);
+    overflow: hidden;
+}
+
+#post-licensing .admonition-title {
+    padding: 10px 0 0 14px;
+    border-bottom-color: var(--code-bg);
+    background-color: var(--code-bg);
+}
+
+#post-licensing .admonition-title a {
+    display: inline-block; 
+    vertical-align:middle;
+}
+
+#post-licensing .details-content {
+    font-size: 0.825em;
+}
+
+#post-licensing .details-content .admonition-content {
+    padding-top: 0;
+    padding-bottom: 10px;
+}
+
+#post-licensing .details-content a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--content);
+}
+
+#post-licensing .details-content ul, #post-licensing .details-content ol {
+    padding-inline-start: 20px;
+}
+
+/* 备案图标 */
+/* .beian {
+    display: inline;
+    position: relative;
+    vertical-align: baseline;
+    top: 5px;
+} */
+
+/* 跳转到评论区按钮 */
+.bottom-comment {
+    bottom: 120px;
+    right: 30px;
+}
+
+
+.x-post-meta-item {
+    display: inline-block;
+  }
+  
+  .x-post-meta-item svg {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.15em;
+    margin-right: 4px;
+  }
+
+  
